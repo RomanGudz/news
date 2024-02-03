@@ -4,12 +4,15 @@ import createElements from './createElements.js';
 const {
   createTitleWrapper,
   createCotainerNewsList,
+  preload,
 } = createElements;
+
+const load = preload();
+document.body.append(load);
+const loading = document.querySelector('.preload');
 
 const main = document.querySelector('main');
 const form = document.querySelector('.form-search');
-
-
 const createListNews = (
   countryNews = 'ru',
   count = 8,
@@ -31,6 +34,8 @@ const renderPage = async () => {
   Promise.all([title, newsList]).then((data) => {
     main.append(data[0]);
     main.append(data[1]);
+  }).finally(() => {
+    loading.remove();
   });
 };
 renderPage();
@@ -50,6 +55,8 @@ countrySelect.addEventListener('change', async e => {
     main.append(data[0]);
     main.append(data[1]);
     main.append(data[2]);
+  }).finally(() => {
+    loading.remove();
   });
 });
 
@@ -75,5 +82,7 @@ form.addEventListener('submit', async e => {
     main.append(data[0]);
     main.append(data[1]);
     main.append(data[2]);
+  }).finally(() => {
+    loading.remove();
   });
 });

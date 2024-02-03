@@ -1,3 +1,9 @@
+const preload = () => {
+  const loading = document.createElement('img');
+  loading.classList.add('preload');
+  document.body.append(loading);
+};
+
 const createTitleWrapper = async (title) => {
   const titleWrapper = document.createElement('div');
   const containerDiv = document.createElement('div');
@@ -24,7 +30,6 @@ const cardNews = async (err, newsAll) => {
     console.warn(err, newsAll);
     return;
   }
-
   const createNewsAll = Promise.all(
     newsAll.map(async (news) => {
       const createLi = document.createElement('li');
@@ -105,4 +110,5 @@ export default {
   createTitleWrapper,
   createCotainerNewsList,
   cardNews,
+  preload,
 };

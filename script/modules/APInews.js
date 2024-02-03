@@ -1,7 +1,5 @@
 const APIKey = '29784ad6d6b34548b1c61d181845931d';
-// const URL = 'headlines.json';
-// ${ URL }
-//     ?country = ${ country }?pageSize = ${ postfix }?q = ${ search }`,
+
 const getNews = async ({
   postfix,
   country,
