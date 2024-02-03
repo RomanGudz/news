@@ -25,8 +25,8 @@ const cardNews = async (err, newsAll) => {
     return;
   }
 
-  const createNewsAll = await Promise.all(
-    newsAll.slice(0, 8).map(async (news) => {
+  const createNewsAll = Promise.all(
+    newsAll.map(async (news) => {
       const createLi = document.createElement('li');
       const createH3 = document.createElement('h3');
       const createA = document.createElement('a');
@@ -37,14 +37,19 @@ const cardNews = async (err, newsAll) => {
       const createFooterAuthor = document.createElement('p');
       createLi.classList.add('news-item');
       const createImg = document.createElement('img');
-      createImg.alt = news.title;
+      const imgLoaded = new Promise((resolve) => {
+        createImg.addEventListener('load', () => {
+          resolve();
+        });
+        createImg.addEventListener('error', () => {
+          createImg.src = 'css/nofoto.png';
+          resolve();
+        });
+      });
+
       createImg.src = `${news.urlToImage}`;
       createImg.height = '200';
       createImg.classList.add('news-image');
-      const imgLoaded = new Promise((resolve) => {
-        createImg.addEventListener('load', resolve);
-        createImg.addEventListener('error', resolve);
-      });
       await imgLoaded;
 
       createH3.classList.add('news-title');
